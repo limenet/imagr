@@ -1,0 +1,10 @@
+{
+    "require": {
+		"masterexploder/phpthumb": "~2.1",
+		"league/climate"         : "~3.2",
+		"vlucas/phpdotenv"       : "~2.0"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
