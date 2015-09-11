@@ -4,3 +4,4 @@ thumbd/
 Thumbs.db
 .env
 composer.lock
+composer.phar
