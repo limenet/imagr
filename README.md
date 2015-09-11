@@ -9,6 +9,14 @@ Originally created in 2011 this tool allows you to compress and resize pictures 
 
 `php imagr.php`, for help call `php imagr.php --help`
 
+## Change defaults
+1. e.g. `cd Documents/imagr`
+2. `nano .env`
+
 ## Maintenance
 
-The usual `php composer.phar self-update && git pull && php composer.phar update`
+1. Open Terminal
+2. e.g. `cd Documents/imagr`
+3. `php composer.phar self-update`
+4. `git pull`
+5. `php composer.phar update`
