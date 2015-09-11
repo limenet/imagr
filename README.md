@@ -11,4 +11,4 @@ Originally created in 2011 this tool allows you to compress and resize pictures 
 
 ## Maintenance
 
-The usual `php composer.phar self-update && git pull php composer.phar update`
+The usual `php composer.phar self-update && git pull && php composer.phar update`
