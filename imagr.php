@@ -5,6 +5,14 @@ ini_set('memory_limit','1G');
 
 require_once 'vendor/autoload.php';
 
+$climate = new League\CLImate\CLImate;
+
+if (!file_exists('.env')) {
+	copy('.env.example', '.env');
+	$climate->error('The .env file was not found. A default .env file was created for you.');
+	$climate->out('The .env file allows you to specify your own defaults. You can overwrite defaults by using either CLI arguments or typing them into the prompt.');
+}
+
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
@@ -16,9 +24,6 @@ $defaults =
 		'source'      => getenv('source'),
 		'destination' => getenv('destination'),
 	];
-
-
-$climate = new League\CLImate\CLImate;
 
 $climate->arguments->add([
     'size' => [
