@@ -1,4 +1,6 @@
 # imagr
+[![StyleCI](https://styleci.io/repos/42322162/shield)](https://styleci.io/repos/42322162)
+
 Originally created in 2011 this tool allows you to compress and resize pictures for the web by using a CLI
 
 ## Setup
