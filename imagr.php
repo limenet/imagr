@@ -1,16 +1,16 @@
 <?php
 
-set_time_limit(60*60);
-ini_set('memory_limit','1G');
+set_time_limit(60 * 60);
+ini_set('memory_limit', '1G');
 
 require_once 'vendor/autoload.php';
 
 $climate = new League\CLImate\CLImate;
 
 if (!file_exists('.env')) {
-	copy('.env.example', '.env');
-	$climate->error('The .env file was not found. A default .env file was created for you.');
-	$climate->out('The .env file allows you to specify your own defaults. You can overwrite defaults by using either CLI arguments or typing them into the prompt.');
+    copy('.env.example', '.env');
+    $climate->error('The .env file was not found. A default .env file was created for you.');
+    $climate->out('The .env file allows you to specify your own defaults. You can overwrite defaults by using either CLI arguments or typing them into the prompt.');
 }
 
 $dotenv = new Dotenv\Dotenv(__DIR__);
@@ -18,12 +18,12 @@ $dotenv->load();
 
 
 $defaults =
-	[
-		'quality'     => getenv('quality'),
-		'size'        => getenv('size'),
-		'source'      => getenv('source'),
-		'destination' => getenv('destination'),
-	];
+    [
+        'quality'     => getenv('quality'),
+        'size'        => getenv('size'),
+        'source'      => getenv('source'),
+        'destination' => getenv('destination'),
+    ];
 
 $climate->arguments->add([
     'size' => [
@@ -60,54 +60,54 @@ $climate->arguments->add([
 $climate->arguments->parse();
 
 if ($climate->arguments->defined('help')) {
-	$climate->description('imagr');
-	$climate->usage();
-	exit;
+    $climate->description('imagr');
+    $climate->usage();
+    exit;
 }
 
 
 $climate->flank('imagr');
 
 if (!$climate->arguments->defined('size')) {
-	$input = $climate->input('Maximum image dimension (in px) [default='.$defaults['size'].']: ');
-	$input->defaultTo($defaults['size']);
-	$size  = $input->prompt();
+    $input = $climate->input('Maximum image dimension (in px) [default='.$defaults['size'].']: ');
+    $input->defaultTo($defaults['size']);
+    $size  = $input->prompt();
 } else {
-	$size = $climate->arguments->get('size');
+    $size = $climate->arguments->get('size');
 }
 
 if (!$climate->arguments->defined('quality')) {
-	$input   = $climate->input('JPEG image quality (in %) [default='.$defaults['quality'].']: ');
-	$input->defaultTo($defaults['quality']);
-	$quality = $input->prompt();
+    $input   = $climate->input('JPEG image quality (in %) [default='.$defaults['quality'].']: ');
+    $input->defaultTo($defaults['quality']);
+    $quality = $input->prompt();
 } else {
-	$quality = $climate->arguments->get('quality');
+    $quality = $climate->arguments->get('quality');
 }
 
 if (!$climate->arguments->defined('source')) {
-	$input   = $climate->input('Source folder (absolute or relative) [default='.$defaults['source'].']: ');
-	$input->defaultTo($defaults['source']);
-	$source = $input->prompt();
+    $input   = $climate->input('Source folder (absolute or relative) [default='.$defaults['source'].']: ');
+    $input->defaultTo($defaults['source']);
+    $source = $input->prompt();
 } else {
-	$source = $climate->arguments->get('source');
+    $source = $climate->arguments->get('source');
 }
 
-if( !file_exists($source)) {
-	$climate->error('Source folder does not exist.');
-	exit;
+if (!file_exists($source)) {
+    $climate->error('Source folder does not exist.');
+    exit;
 }
 
 if (!$climate->arguments->defined('destination')) {
-	$input   = $climate->input('Destination folder (absolute or relative) [default='.$defaults['destination'].']: ');
-	$input->defaultTo($defaults['destination']);
-	$destination = $input->prompt();
+    $input   = $climate->input('Destination folder (absolute or relative) [default='.$defaults['destination'].']: ');
+    $input->defaultTo($defaults['destination']);
+    $destination = $input->prompt();
 } else {
-	$destination = $climate->arguments->get('destination');
+    $destination = $climate->arguments->get('destination');
 }
 
-if( !file_exists($destination)) {
-	$climate->error('Destination folder does not exist.');
-	exit;
+if (!file_exists($destination)) {
+    $climate->error('Destination folder does not exist.');
+    exit;
 }
 
 $files = array_merge(glob($source.'/*.jpg'), glob($source.'/*.JPG'), glob($source.'/*.jpeg'));
@@ -116,17 +116,17 @@ $progress = $climate->progress()->total(count($files));
 
 $i = 0;
 foreach($files as $f){
-	$options = ['resizeUp' => true, 'jpegQuality' => $quality];
-	$thumb   = new PHPThumb\GD($f, $options);
-	$paths   = pathinfo($f);
+    $options = ['resizeUp' => true, 'jpegQuality' => $quality];
+    $thumb   = new PHPThumb\GD($f, $options);
+    $paths   = pathinfo($f);
 
-	$thumb->resize($size, $size);
-	$thumb->save($destination.'/'.$paths['filename'].'_s'.$size.'-q'.$quality.'.'.$paths['extension'], 'jpg');
+    $thumb->resize($size, $size);
+    $thumb->save($destination.'/'.$paths['filename'].'_s'.$size.'-q'.$quality.'.'.$paths['extension'], 'jpg');
 
-	unset($thumb);
+    unset($thumb);
 
-	$i++;
-	$progress->current($i);
+    $i++;
+    $progress->current($i);
 }
 
 $climate->br()->green('Successfully processed '.count($files).' pictures.')->out('You can find the resized images in the destination folder. The originals weren\'t touched.');
