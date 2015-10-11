@@ -5,7 +5,7 @@ ini_set('memory_limit', '1G');
 
 require_once 'vendor/autoload.php';
 
-$climate = new League\CLImate\CLImate;
+$climate = new League\CLImate\CLImate();
 
 if (!file_exists('.env')) {
     copy('.env.example', '.env');
@@ -15,7 +15,6 @@ if (!file_exists('.env')) {
 
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
-
 
 $defaults =
     [
@@ -33,21 +32,21 @@ $climate->arguments->add([
         'defaultValue' => $defaults['size'],
     ],
     'quality' => [
-        'prefix'      => 'q',
-        'longPrefix'  => 'quality',
-        'description' => 'The desired JPEG quality (in %)',
+        'prefix'       => 'q',
+        'longPrefix'   => 'quality',
+        'description'  => 'The desired JPEG quality (in %)',
         'defaultValue' => $defaults['quality'],
     ],
     'source' => [
-        'prefix'      => 's',
-        'longPrefix'  => 'source',
-        'description' => 'The folder with the images to be processed (absolute or relative)',
+        'prefix'       => 's',
+        'longPrefix'   => 'source',
+        'description'  => 'The folder with the images to be processed (absolute or relative)',
         'defaultValue' => $defaults['source'],
     ],
     'destination' => [
-        'prefix'      => 'd',
-        'longPrefix'  => 'destination',
-        'description' => 'The folder where the processed images are to be stored (absolute or relative)',
+        'prefix'       => 'd',
+        'longPrefix'   => 'destination',
+        'description'  => 'The folder where the processed images are to be stored (absolute or relative)',
         'defaultValue' => $defaults['destination'],
     ],
     'help' => [
@@ -65,19 +64,18 @@ if ($climate->arguments->defined('help')) {
     exit;
 }
 
-
 $climate->flank('imagr');
 
 if (!$climate->arguments->defined('size')) {
     $input = $climate->input('Maximum image dimension (in px) [default='.$defaults['size'].']: ');
     $input->defaultTo($defaults['size']);
-    $size  = $input->prompt();
+    $size = $input->prompt();
 } else {
     $size = $climate->arguments->get('size');
 }
 
 if (!$climate->arguments->defined('quality')) {
-    $input   = $climate->input('JPEG image quality (in %) [default='.$defaults['quality'].']: ');
+    $input = $climate->input('JPEG image quality (in %) [default='.$defaults['quality'].']: ');
     $input->defaultTo($defaults['quality']);
     $quality = $input->prompt();
 } else {
@@ -85,7 +83,7 @@ if (!$climate->arguments->defined('quality')) {
 }
 
 if (!$climate->arguments->defined('source')) {
-    $input   = $climate->input('Source folder (absolute or relative) [default='.$defaults['source'].']: ');
+    $input = $climate->input('Source folder (absolute or relative) [default='.$defaults['source'].']: ');
     $input->defaultTo($defaults['source']);
     $source = $input->prompt();
 } else {
@@ -98,7 +96,7 @@ if (!file_exists($source)) {
 }
 
 if (!$climate->arguments->defined('destination')) {
-    $input   = $climate->input('Destination folder (absolute or relative) [default='.$defaults['destination'].']: ');
+    $input = $climate->input('Destination folder (absolute or relative) [default='.$defaults['destination'].']: ');
     $input->defaultTo($defaults['destination']);
     $destination = $input->prompt();
 } else {
@@ -115,10 +113,10 @@ $files = array_merge(glob($source.'/*.jpg'), glob($source.'/*.JPG'), glob($sourc
 $progress = $climate->progress()->total(count($files));
 
 $i = 0;
-foreach($files as $f){
+foreach ($files as $f) {
     $options = ['resizeUp' => true, 'jpegQuality' => $quality];
-    $thumb   = new PHPThumb\GD($f, $options);
-    $paths   = pathinfo($f);
+    $thumb = new PHPThumb\GD($f, $options);
+    $paths = pathinfo($f);
 
     $thumb->resize($size, $size);
     $thumb->save($destination.'/'.$paths['filename'].'_s'.$size.'-q'.$quality.'.'.$paths['extension'], 'jpg');
