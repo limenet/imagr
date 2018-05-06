@@ -1,1 +1,2 @@
-preset: recommended
+php:
+  preset: recommended

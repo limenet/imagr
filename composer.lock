@@ -1,33 +1,37 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "ac192af0efc0d6b3854cf363d00d5097",
     "packages": [
         {
             "name": "league/climate",
-            "version": "3.2.1",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/climate.git",
-                "reference": "b103fc8faa3780c802cc507d5f0ff534ecc94fb5"
+                "reference": "d657a19837c1f79a891381fb128b755aa3386381"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/climate/zipball/b103fc8faa3780c802cc507d5f0ff534ecc94fb5",
-                "reference": "b103fc8faa3780c802cc507d5f0ff534ecc94fb5",
+                "url": "https://api.github.com/repos/thephpleague/climate/zipball/d657a19837c1f79a891381fb128b755aa3386381",
+                "reference": "d657a19837c1f79a891381fb128b755aa3386381",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
-                "seld/cli-prompt": "~1.0"
+                "php": "^5.6|^7.0",
+                "psr/log": "^1.0",
+                "seld/cli-prompt": "^1.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "~1.4",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.6"
+                "mikey179/vfsstream": "^1.4",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^5.7.16"
+            },
+            "suggest": {
+                "ext-mbstring": "If ext-mbstring is not available you MUST install symfony/polyfill-mbstring"
             },
             "type": "library",
             "autoload": {
@@ -40,6 +44,12 @@
                 "MIT"
             ],
             "authors": [
+                {
+                    "name": "Craig Duncan",
+                    "email": "git@duncanc.co.uk",
+                    "homepage": "https://github.com/duncan3dc",
+                    "role": "Developer"
+                },
                 {
                     "name": "Joe Tannenbaum",
                     "email": "hey@joe.codes",
@@ -55,7 +65,7 @@
                 "php",
                 "terminal"
             ],
-            "time": "2016-04-04T20:24:59+00:00"
+            "time": "2018-04-29T16:43:54+00:00"
         },
         {
             "name": "masterexploder/phpthumb",
@@ -103,6 +113,53 @@
                 "rotate"
             ],
             "time": "2015-09-08T22:55:44+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "seld/cli-prompt",
